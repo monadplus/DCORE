@@ -89,7 +89,7 @@
 
 \begin{frame}[fragile]{Introduction}
   \begin{block}{\emph{Complex Event Recognition (CER)}}
-    Identifying collections of events that collectively satisfy some pattern in high-velocity streams.
+    Identify collections of events that satisfy some pattern in streams of primitive events. These collections of events are referred as \emph{complex events}.
   \end{block}
 
   \begin{block}{Features}
@@ -258,7 +258,7 @@ WITHIN 10 events
 
 \begin{frame}{Introduction}
  \begin{block}<1->{Partial Matches Problem}
-   Under the default \emph{skip-till-any-match} \cite{skip-till-any-match} policy, the set of partial matches grow \emph{exponentially} in $N$.
+   The set of partial matches grow \emph{exponentially} in $N$.
  \end{block}
  \begin{block}<2->{Related Work}
     CER systems (e.g., Cayuga, Esper, SASE, TESLA/T-REX) still suffer from:
@@ -298,12 +298,6 @@ WITHIN 10 events
   \begin{block}{Contributions}
    \begin{itemize}
      \item A distributed framework for CER that circumvents the filtering limitations of many CER systems.
-      \begin{itemize}
-        \pause
-        \item Distributed CER Engine (DCERE)
-        \pause
-        \item Distributed CORE (DCORE)
-      \end{itemize}
      \pause
      \item A novel distributed evaluation algorithm based on CORE.
    \end{itemize}
@@ -384,9 +378,9 @@ WITHIN 10 events
   \begin{block}{Complex Event Automaton (CEA)}
      A form of finite automaton that produces complex events.
   \end{block}
-  \begin{definition}
-  A tuple $\mathcal{A} = (Q, \Delta, q_{0}, F)$ where $Q$ is a finite set of states, $\Delta \subseteq Q \times \textbf{P} \times \{\bullet, \circ\} \times (Q \setminus \{ q_{0} \})$ is a finite transition, $q_{0} \in Q$ is the initial state, and $F \subseteq Q$ is the set of final states. We will denote transitions in $\Delta$ by $q \xrightarrow[]{P/m} q'$.
-  \end{definition}
+  % \begin{definition}
+  % A tuple $\mathcal{A} = (Q, \Delta, q_{0}, F)$ where $Q$ is a finite set of states, $\Delta \subseteq Q \times \textbf{P} \times \{\bullet, \circ\} \times (Q \setminus \{ q_{0} \})$ is a finite transition, $q_{0} \in Q$ is the initial state, and $F \subseteq Q$ is the set of final states. We will denote transitions in $\Delta$ by $q \xrightarrow[]{P/m} q'$.
+  % \end{definition}
 \end{frame}
 
 \begin{frame}[fragile]{Preliminaries}
@@ -590,14 +584,8 @@ WITHIN 10 events
           \end{subfigure}
         \end{figure}
       \end{column}
-
       \begin{column}{0.5\textwidth}
-        \begin{figure}[H]
-          \inputtikz{AB+_0}
-          \caption*{$S[$0$]$}
-        \end{figure}
       \end{column}
-
     \end{columns}
   \end{block}
 \end{frame}
@@ -621,7 +609,35 @@ WITHIN 10 events
       \end{column}
 
       \begin{column}{0.5\textwidth}
+        \begin{figure}[t]
+          \inputtikz{AB+_0}
+          \caption*{$S[$0$]$}
+        \end{figure}
+      \end{column}
+    \end{columns}
+  \end{block}
+\end{frame}
+
+\begin{frame}{Distributed evaluation algorithm}
+  \begin{block}{Evaluation algorithm}
+    \begin{columns}
+
+      \begin{column}{0.5\textwidth}
         \begin{figure}[H]
+          \centering
+          \begin{subfigure}[b]{\textwidth}
+            \centering
+            \inputtikz{cea}
+          \end{subfigure}
+          \begin{subfigure}[t]{\textwidth}
+            \centering
+            \inputtikz{stream}
+          \end{subfigure}
+        \end{figure}
+      \end{column}
+
+      \begin{column}{0.5\textwidth}
+        \begin{figure}[t]
           \inputtikz{AB+_1}
           \caption*{$S[$1$]$}
         \end{figure}
@@ -650,7 +666,7 @@ WITHIN 10 events
       \end{column}
 
       \begin{column}{0.5\textwidth}
-        \begin{figure}[H]
+        \begin{figure}[t]
           \inputtikz{AB+_2}
           \caption*{$S[$2$]$}
         \end{figure}
@@ -679,7 +695,7 @@ WITHIN 10 events
       \end{column}
 
       \begin{column}{0.5\textwidth}
-        \begin{figure}[H]
+        \begin{figure}[t]
           \inputtikz{AB+_3}
           \caption*{$S[$3$]$}
         \end{figure}
@@ -708,7 +724,7 @@ WITHIN 10 events
       \end{column}
 
       \begin{column}{0.5\textwidth}
-        \begin{figure}[H]
+        \begin{figure}[t]
           \inputtikz{AB+_4}
           \caption*{$S[$4$]$}
         \end{figure}
@@ -843,27 +859,36 @@ WITHIN 10 events
 
 %%%%%%%%%%%%%%%%%%%%%
 
+% \begin{frame}{Experiments}
+%   \begin{block}{On the evaluation of complex predicates}
+%     \begin{figure}[H]
+%         \centering
+%         \begin{subfigure}[b]{0.40\textwidth}
+%             \centering
+%             \includegraphics[width=\textwidth]{experiment_1_chart_1}
+%             \tiny (a) $Q_{1}$
+%         \end{subfigure}
+%         \begin{subfigure}[b]{0.40\textwidth}
+%             \centering
+%             \includegraphics[width=\textwidth]{experiment_1_chart_2}
+%             \tiny (b) $Q_{2}$
+%         \end{subfigure}
+%         \begin{center}
+%           \begin{subfigure}[b]{0.40\textwidth}
+%               \centering
+%               \includegraphics[width=\textwidth]{experiment_1_chart_3}
+%               \tiny (c) $Q_{3}$
+%           \end{subfigure}
+%         \end{center}
+%     \end{figure}
+%   \end{block}
+% \end{frame}
+
 \begin{frame}{Experiments}
   \begin{block}{On the evaluation of complex predicates}
     \begin{figure}[H]
         \centering
-        \begin{subfigure}[b]{0.40\textwidth}
-            \centering
-            \includegraphics[width=\textwidth]{experiment_1_chart_1}
-            \tiny (a) $Q_{1}$
-        \end{subfigure}
-        \begin{subfigure}[b]{0.40\textwidth}
-            \centering
-            \includegraphics[width=\textwidth]{experiment_1_chart_2}
-            \tiny (b) $Q_{2}$
-        \end{subfigure}
-        \begin{center}
-          \begin{subfigure}[b]{0.40\textwidth}
-              \centering
-              \includegraphics[width=\textwidth]{experiment_1_chart_3}
-              \tiny (c) $Q_{3}$
-          \end{subfigure}
-        \end{center}
+        \includegraphics[width=\textwidth]{experiment_1_chart_3}
     \end{figure}
   \end{block}
 \end{frame}
@@ -874,43 +899,45 @@ WITHIN 10 events
   \begin{block}{On the scalability of the framework}
     \begin{figure}[H]
         \centering
-        \begin{subfigure}[b]{0.49\textwidth}
-            \centering
-            \includegraphics[width=\textwidth]{experiment_3_chart_1}
-            \tiny (a) $1024$ complex events
-        \end{subfigure}
-        \begin{subfigure}[b]{0.49\textwidth}
-            \centering
-            \includegraphics[width=\textwidth]{experiment_3_chart_2}
-            \tiny (b) $2048$ complex events
-        \end{subfigure}
+        \includegraphics[width=\textwidth]{experiment_3_chart_2}
+        \tiny (b) $2048$ complex events
     \end{figure}
   \end{block}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%
 
+% \begin{frame}{Experiments}
+%   \begin{block}{On DCORE under heavy loads}
+%     \begin{figure}[H]
+%         \centering
+%         \begin{subfigure}[b]{0.4\textwidth}
+%             \centering
+%             \includegraphics[width=\textwidth]{experiment_4_chart_1}
+%             \tiny (a) $Q_{1}$
+%         \end{subfigure}
+%         \begin{subfigure}[b]{0.4\textwidth}
+%             \centering
+%             \includegraphics[width=\textwidth]{experiment_4_chart_2}
+%             \tiny (b) $Q_{2}$
+%         \end{subfigure}
+%         \begin{center}
+%         \begin{subfigure}[b]{0.4\textwidth}
+%             \centering
+%             \includegraphics[width=\textwidth]{experiment_4_chart_3}
+%             \tiny (c) $Q_{3}$
+%         \end{subfigure}
+%         \end{center}
+%     \end{figure}
+%   \end{block}
+% \end{frame}
+
+
 \begin{frame}{Experiments}
   \begin{block}{On DCORE under heavy loads}
     \begin{figure}[H]
         \centering
-        \begin{subfigure}[b]{0.4\textwidth}
-            \centering
-            \includegraphics[width=\textwidth]{experiment_4_chart_1}
-            \tiny (a) $Q_{1}$
-        \end{subfigure}
-        \begin{subfigure}[b]{0.4\textwidth}
-            \centering
-            \includegraphics[width=\textwidth]{experiment_4_chart_2}
-            \tiny (b) $Q_{2}$
-        \end{subfigure}
-        \begin{center}
-        \begin{subfigure}[b]{0.4\textwidth}
-            \centering
-            \includegraphics[width=\textwidth]{experiment_4_chart_3}
-            \tiny (c) $Q_{3}$
-        \end{subfigure}
-        \end{center}
+        \includegraphics[width=\textwidth]{experiment_4_chart_3}
     \end{figure}
   \end{block}
 \end{frame}
@@ -922,18 +949,16 @@ WITHIN 10 events
 \section{Conclusions and Future Work}
 
 \begin{frame}{Conclusions \& future work}
-  \begin{block}{Conclusions}
+  \begin{block}{Summary}
    \begin{itemize}
      \item We presented:
         \begin{itemize}
-          \item A framework for distributed CER.
-          \pause
-          \item Two implementations: DCERE and DCORE.
+          \item A framework for distributed CER (DCERE and DCORE).
           \pause
           \item A distributed evaluation algorithm for DCORE.
         \end{itemize}
      \pause
-     \item We showed that both implementations of our framework outperform its competitors on queries with complex predicates.
+     \item We showed that the performance and the scalability of our system is better than CORE under queries with binary predicates. Also, the distributed enumeration pays off when the number of complex event is large.
    \end{itemize}
   \end{block}
 \end{frame}
